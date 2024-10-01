@@ -11,24 +11,24 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule]
 })
 export class ListaComponent implements OnInit {
-  usuarios: any[] = []; // Aquí se almacenarán los datos completos de los usuarios
+  usuarios: any[] = [];
   nuevoElemento: string = '';
-  desplegado: boolean[] = []; // Controla si el desplegable de cada usuario está abierto o cerrado
+  desplegado: boolean[] = [];
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    // Hacer la solicitud HTTP para obtener los datos completos de los usuarios
+    
     this.http.get<any[]>('https://jsonplaceholder.typicode.com/users')
       .subscribe(data => {
-        this.usuarios = data; // Guardar todos los datos de los usuarios
-        this.desplegado = new Array(data.length).fill(false); // Inicializar el estado desplegado a 'false' para todos los usuarios
+        this.usuarios = data; 
+        this.desplegado = new Array(data.length).fill(false); 
       });
   }
 
   agregarElemento(): void {
     if (this.nuevoElemento) {
-      // Generar información aleatoria para los detalles del nuevo usuario
+      
       const nuevoUsuario = {
         name: this.nuevoElemento,
         email: this.generarEmailAleatorio(this.nuevoElemento),
@@ -42,22 +42,22 @@ export class ListaComponent implements OnInit {
         }
       };
 
-      this.usuarios.push(nuevoUsuario); // Añadir el nuevo usuario con los detalles generados
-      this.desplegado.push(false); // Añadir un nuevo desplegable para el nuevo usuario
-      this.nuevoElemento = ''; // Limpiar el input
+      this.usuarios.push(nuevoUsuario); 
+      this.desplegado.push(false); 
+      this.nuevoElemento = ''; 
     }
   }
 
   eliminarElemento(index: number): void {
     this.usuarios.splice(index, 1);
-    this.desplegado.splice(index, 1); // Eliminar también el estado desplegado del usuario eliminado
+    this.desplegado.splice(index, 1); 
   }
 
   toggleDesplegable(index: number): void {
-    this.desplegado[index] = !this.desplegado[index]; // Cambia el estado del desplegable
+    this.desplegado[index] = !this.desplegado[index];
   }
 
-  // Funciones auxiliares para generar datos aleatorios
+  
   generarEmailAleatorio(nombre: string): string {
     const dominios = ['example.com', 'email.com', 'domain.net'];
     const dominio = dominios[Math.floor(Math.random() * dominios.length)];
@@ -66,7 +66,7 @@ export class ListaComponent implements OnInit {
 
   generarTelefonoAleatorio(): string {
     const numeros = Math.floor(Math.random() * 900000000) + 100000000;
-    return `+34 ${numeros}`; // Número de teléfono en formato español
+    return `+34 ${numeros}`; 
   }
 
   generarWebsiteAleatorio(): string {
