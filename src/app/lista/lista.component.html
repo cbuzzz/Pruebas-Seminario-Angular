@@ -1,16 +1,17 @@
 <div>
-    <h1>Lista de Estudiantes EA</h1>
-    
-    <input [(ngModel)]="nuevoElemento" placeholder="Añade un estudiante" />
-    <button (click)="agregarElemento()">Agregar</button>
-    
-    <ul>
-      <li *ngFor="let elemento of elementos; let i = index">
-        {{ elemento }}
-        <button (click)="eliminarElemento(i)">Eliminar</button>
-      </li>
-    </ul>
-  </div>
+  <h1>Lista de Estudiantes EA</h1>
+
+  <input [(ngModel)]="nuevoElemento" placeholder="Añade un estudiante" />
+  <button (click)="agregarElemento()">Agregar</button>
+
+  <ul>
+    <li *ngFor="let elemento of elementos; let i = index">
+      {{ elemento }}
+      <button (click)="eliminarElemento(i)">Eliminar</button>
+    </li>
+  </ul>
+</div>
+
   
   
   

@@ -1,29 +1,37 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http'; // Importar HttpClient
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-lista',
-  standalone: true,
   templateUrl: './lista.component.html',
   styleUrls: ['./lista.component.css'],
-  imports: [FormsModule, CommonModule]
+  standalone: true,
+  imports: [CommonModule, FormsModule]
 })
-export class ListaComponent {
-  elementos: string[] = ['Carla', 'Pere', 'Mayra', 'Andrea', 'Dani', 'Buzz']; 
+export class ListaComponent implements OnInit {
+  elementos: any[] = []; // Aquí se almacenarán los datos de la API
   nuevoElemento: string = '';
 
-  constructor() {
+  constructor(private http: HttpClient) { }
+
+  ngOnInit(): void {
+    // Hacer la solicitud HTTP para obtener los datos de la API
+    this.http.get<any[]>('https://jsonplaceholder.typicode.com/users')
+      .subscribe(data => {
+        this.elementos = data.map(user => user.name); // Guardar los nombres de los usuarios en 'elementos'
+      });
   }
 
-  agregarElemento() {
-    if (this.nuevoElemento.trim()) {
+  agregarElemento(): void {
+    if (this.nuevoElemento) {
       this.elementos.push(this.nuevoElemento);
       this.nuevoElemento = '';
     }
   }
 
-  eliminarElemento(index: number) {
+  eliminarElemento(index: number): void {
     this.elementos.splice(index, 1);
   }
 }
