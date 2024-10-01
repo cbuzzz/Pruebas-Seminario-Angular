@@ -10,17 +10,16 @@ import { CommonModule } from '@angular/common';
   imports: [FormsModule, CommonModule]
 })
 export class ListaComponent {
-  elementos: string[] = ['Carla', 'Pere', 'Mayra', 'Andrea', 'Dani', 'Buzz']; // Elementos iniciales
+  elementos: string[] = ['Carla', 'Pere', 'Mayra', 'Andrea', 'Dani', 'Buzz']; 
   nuevoElemento: string = '';
 
   constructor() {
-    // Puedes inicializar elementos aquí si prefieres
   }
 
   agregarElemento() {
     if (this.nuevoElemento.trim()) {
       this.elementos.push(this.nuevoElemento);
-      this.nuevoElemento = ''; // Limpiar el campo de entrada
+      this.nuevoElemento = '';
     }
   }
 

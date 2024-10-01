@@ -6,7 +6,7 @@ import { ListaComponent } from './lista/lista.component';
   standalone: true,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  imports: [ListaComponent] // Importamos el componente standalone
+  imports: [ListaComponent] 
 })
 export class AppComponent {
   title = 'lista-elementos';
