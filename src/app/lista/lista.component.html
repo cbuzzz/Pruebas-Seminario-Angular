@@ -5,9 +5,28 @@
   <button (click)="agregarElemento()">Agregar</button>
 
   <ul>
-    <li *ngFor="let elemento of elementos; let i = index">
-      {{ elemento }}
-      <button (click)="eliminarElemento(i)">Eliminar</button>
+    <li *ngFor="let usuario of usuarios; let i = index">
+      <div>
+        <!-- Mostrar el nombre del usuario y un botón para desplegar/cerrar los detalles -->
+        <strong>{{ usuario.name }}</strong>
+        <button (click)="toggleDesplegable(i)">
+          {{ desplegado[i] ? 'Ocultar detalles' : 'Mostrar detalles' }}
+        </button>
+        <button (click)="eliminarElemento(i)">Eliminar</button>
+      </div>
+
+      <!-- Desplegable para mostrar más detalles -->
+      <div *ngIf="desplegado[i]">
+        <p><strong>Email:</strong> {{ usuario.email }}</p>
+        <p><strong>Teléfono:</strong> {{ usuario.phone }}</p>
+        <p><strong>Website:</strong> {{ usuario.website }}</p>
+        <p><strong>Compañía:</strong> {{ usuario.company?.name }}</p>
+        <p><strong>Dirección:</strong> 
+          {{ usuario.address?.street }}, 
+          {{ usuario.address?.city }}, 
+          {{ usuario.address?.zipcode }}
+        </p>
+      </div>
     </li>
   </ul>
 </div>
