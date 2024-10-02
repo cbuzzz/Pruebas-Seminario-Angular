@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+
 @Component({
   selector: 'app-lista',
   templateUrl: './lista.component.html',
@@ -13,6 +14,8 @@ import { FormsModule } from '@angular/forms';
 export class ListaComponent implements OnInit {
   usuarios: any[] = []; // Aquí se almacenarán los datos completos de los usuarios
   desplegado: boolean[] = []; // Controla si el desplegable de cada usuario está abierto o cerrado
+
+  data: any = {};
 
   // Objeto para almacenar los datos del nuevo usuario
   nuevoUsuario = {
@@ -30,6 +33,21 @@ export class ListaComponent implements OnInit {
     }
   };
 
+  /*constructor(private apiService: ApiService){}
+  
+  ngOnInit(): void {
+    this.llenarData();
+  }
+
+  llenarData(){
+    this.apiService.getData().subscribe( data =>{
+      this.data = data;
+      console.log(this.data);
+    })
+
+  }*/
+
+
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -40,6 +58,7 @@ export class ListaComponent implements OnInit {
         this.desplegado = new Array(data.length).fill(false);
       });
   }
+
 
   // Función para agregar un nuevo elemento basado en los datos del formulario
   agregarElemento(): void {
