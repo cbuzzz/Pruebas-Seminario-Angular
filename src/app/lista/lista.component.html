@@ -1,38 +1,76 @@
-<div>
-  <h1>Lista de Estudiantes EA</h1>
-
-  <input [(ngModel)]="nuevoElemento" placeholder="Añade un estudiante" />
-  <button (click)="agregarElemento()">Agregar</button>
-
-  <ul>
-    <li *ngFor="let usuario of usuarios; let i = index">
-      <div>
-        <!-- Mostrar el nombre del usuario y un botón para desplegar/cerrar los detalles -->
-        <strong>{{ usuario.name }}</strong>
-        <button (click)="toggleDesplegable(i)">
-          {{ desplegado[i] ? 'Ocultar detalles' : 'Mostrar detalles' }}
-        </button>
-        <button (click)="eliminarElemento(i)">Eliminar</button>
+<div class="container">
+  <!-- Formulario a la izquierda -->
+  <div class="form-container">
+    <h1>Agregar un nuevo usuario</h1>
+    <form (submit)="agregarElemento()" class="user-form">
+      <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input id="nombre" [(ngModel)]="nuevoUsuario.name" name="name" placeholder="Nombre del usuario" required />
       </div>
 
-      <!-- Desplegable para mostrar más detalles -->
-      <div *ngIf="desplegado[i]">
-        <p><strong>Email:</strong> {{ usuario.email }}</p>
-        <p><strong>Teléfono:</strong> {{ usuario.phone }}</p>
-        <p><strong>Website:</strong> {{ usuario.website }}</p>
-        <p><strong>Compañía:</strong> {{ usuario.company?.name }}</p>
-        <p><strong>Dirección:</strong> 
-          {{ usuario.address?.street }}, 
-          {{ usuario.address?.city }}, 
-          {{ usuario.address?.zipcode }}
-        </p>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input id="email" [(ngModel)]="nuevoUsuario.email" name="email" placeholder="Email" required />
       </div>
-    </li>
-  </ul>
+
+      <div class="form-group">
+        <label for="telefono">Teléfono:</label>
+        <input id="telefono" [(ngModel)]="nuevoUsuario.phone" name="phone" placeholder="Teléfono" required />
+      </div>
+
+      <div class="form-group">
+        <label for="website">Sitio Web:</label>
+        <input id="website" [(ngModel)]="nuevoUsuario.website" name="website" placeholder="Sitio Web" />
+      </div>
+
+      <div class="form-group">
+        <label for="compania">Compañía:</label>
+        <input id="compania" [(ngModel)]="nuevoUsuario.company.name" name="company" placeholder="Compañía" />
+      </div>
+
+      <div class="form-group">
+        <label for="direccion">Dirección:</label>
+        <input id="direccion" [(ngModel)]="nuevoUsuario.address.street" name="street" placeholder="Calle" />
+      </div>
+
+      <div class="form-group">
+        <label for="ciudad">Ciudad:</label>
+        <input id="ciudad" [(ngModel)]="nuevoUsuario.address.city" name="city" placeholder="Ciudad" />
+      </div>
+
+      <div class="form-group">
+        <label for="codigoPostal">Código Postal:</label>
+        <input id="codigoPostal" [(ngModel)]="nuevoUsuario.address.zipcode" name="zipcode" placeholder="Código Postal" />
+      </div>
+
+      <button type="submit" class="submit-button">Agregar</button>
+    </form>
+  </div>
+
+  <!-- Lista de usuarios a la derecha -->
+  <div class="lista-usuarios">
+    <h2>Lista de Usuarios</h2>
+    <ul>
+      <li *ngFor="let usuario of usuarios; let i = index">
+        <div>
+          <strong>{{ usuario.name }}</strong>
+          <button (click)="toggleDesplegable(i)">
+            {{ desplegado[i] ? 'Ocultar detalles' : 'Mostrar detalles' }}
+          </button>
+          <button (click)="eliminarElemento(i)">Eliminar</button>
+        </div>
+
+        <!-- Detalles del usuario -->
+        <div *ngIf="desplegado[i]">
+          <p><strong>Email:</strong> {{ usuario.email }}</p>
+          <p><strong>Teléfono:</strong> {{ usuario.phone }}</p>
+          <p><strong>Website:</strong> {{ usuario.website }}</p>
+          <p><strong>Compañía:</strong> {{ usuario.company?.name }}</p>
+          <p><strong>Dirección:</strong> {{ usuario.address?.street }}, {{ usuario.address?.city }}, {{ usuario.address?.zipcode }}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
 
-  
-  
-  
-  
-  
+
