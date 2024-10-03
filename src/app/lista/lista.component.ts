@@ -18,7 +18,7 @@ export class ListaComponent implements OnInit {
   data: any = {};
 
   // Objeto para almacenar los datos del nuevo usuario
-  nuevoUsuario = {
+  /*nuevoUsuario = {
     name: '',
     email: '',
     phone: '',
@@ -31,9 +31,17 @@ export class ListaComponent implements OnInit {
       city: '',
       zipcode: ''
     }
-  };
+  };*/
 
-  /*constructor(private apiService: ApiService){}
+  nuevoUsuario = {
+    id: '',
+    name: '',
+    mail: '',
+    password: '',
+    comment: ''
+  }
+
+  /*constructor(private apiService: ApiService){} 
   
   ngOnInit(): void {
     this.llenarData();
@@ -47,12 +55,14 @@ export class ListaComponent implements OnInit {
 
   }*/
 
-
   constructor(private http: HttpClient) {}
+
+  //https://jsonplaceholder.typicode.com/users
+  //localhost:3000/api/user
 
   ngOnInit(): void {
     // Cargar usuarios desde la API
-    this.http.get<any[]>('https://jsonplaceholder.typicode.com/users')
+    this.http.get<any[]>('localhost:3000/api/user')
       .subscribe(data => {
         this.usuarios = data;
         this.desplegado = new Array(data.length).fill(false);
@@ -70,14 +80,22 @@ export class ListaComponent implements OnInit {
     this.desplegado.push(false); // Añadir estado para el desplegable
 
     // Limpiar el formulario
-    this.nuevoUsuario = {
+    /*this.nuevoUsuario = {
       name: '',
       email: '',
       phone: '',
       website: '',
       company: { name: '' },
       address: { street: '', city: '', zipcode: '' }
-    };
+    };*/
+    
+    this.nuevoUsuario = {
+      id: '',
+      name: '',
+      mail: '',
+      password: '',
+      comment: ''
+      }
 
     // Enviar el JSON a la API externa (simulación)
     this.enviarDatosAPI(usuarioJSON);

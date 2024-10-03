@@ -3,11 +3,12 @@
   <div class="form-container">
     <h1>Agregar un nuevo usuario</h1>
     <form (submit)="agregarElemento()" class="user-form">
-      <div class="form-group">
+
+      <!--<div class="form-group">
         <label for="nombre">Nombre:</label>
         <input id="nombre" [(ngModel)]="nuevoUsuario.name" name="name" placeholder="Nombre del usuario" required />
       </div>
-
+      
       <div class="form-group">
         <label for="email">Email:</label>
         <input id="email" [(ngModel)]="nuevoUsuario.email" name="email" placeholder="Email" required />
@@ -41,9 +42,34 @@
       <div class="form-group">
         <label for="codigoPostal">Código Postal:</label>
         <input id="codigoPostal" [(ngModel)]="nuevoUsuario.address.zipcode" name="zipcode" placeholder="Código Postal" />
+      </div>-->
+      <div class="form-group">
+        <label for="id">id:</label>
+        <input id="id" [(ngModel)]="nuevoUsuario.id" name="id" placeholder="Id del usuario" required />
+      </div>
+
+      <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input id="nombre" [(ngModel)]="nuevoUsuario.name" name="name" placeholder="Nombre del usuario" required />
+      </div>
+
+      <div class="form-group">
+        <label for="mail">Email:</label>
+        <input id="mail" [(ngModel)]="nuevoUsuario.mail" name="mail" placeholder="Email" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Contraseña:</label>
+        <input id="password" [(ngModel)]="nuevoUsuario.password" name="password" placeholder="Password" required />
+      </div>
+
+      <div class="form-group">
+        <label for="comment">Comment:</label>
+        <input id="comment" [(ngModel)]="nuevoUsuario.comment" name="comment" placeholder="Comment" required />
       </div>
 
       <button type="submit" class="submit-button">Agregar</button>
+        
     </form>
   </div>
 
@@ -61,12 +87,20 @@
         </div>
 
         <!-- Detalles del usuario -->
-        <div *ngIf="desplegado[i]">
+        <!--<div *ngIf="desplegado[i]">
           <p><strong>Email:</strong> {{ usuario.email }}</p>
           <p><strong>Teléfono:</strong> {{ usuario.phone }}</p>
           <p><strong>Website:</strong> {{ usuario.website }}</p>
           <p><strong>Compañía:</strong> {{ usuario.company?.name }}</p>
           <p><strong>Dirección:</strong> {{ usuario.address?.street }}, {{ usuario.address?.city }}, {{ usuario.address?.zipcode }}</p>
+        </div>-->
+
+        <div *ngIf="desplegado[i]">
+          <p><strong>Id:</strong> {{ usuario.id }}</p>
+          <p><strong>Email:</strong> {{ usuario.mail }}</p>
+          <p><strong>Contraseña:</strong> {{ usuario.password }}</p>
+          <p><strong>Comentario:</strong> {{ usuario.comment }}</p>
+          
         </div>
       </li>
     </ul>
