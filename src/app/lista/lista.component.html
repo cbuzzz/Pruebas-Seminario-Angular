@@ -44,34 +44,37 @@
         <input id="codigoPostal" [(ngModel)]="nuevoUsuario.address.zipcode" name="zipcode" placeholder="Código Postal" />
       </div>-->
       
+      
+      
+      
       <!--<div class="form-group">
-        <label for="_id">_id:</label>
-        <input id="_id" [(ngModel)]="nuevoUsuario._id" name="_id" placeholder="Id del usuario en BD" required />
+        <label for="_id">id:</label>
+        <input id="_id" [(ngModel)]="getUsuario.id" name="_Id" placeholder="Id del usuario" required />
       </div>-->
 
       <div class="form-group">
         <label for="id">id:</label>
-        <input id="id" [(ngModel)]="nuevoUsuario.id" name="id" placeholder="Id del usuario" required />
+        <input id="id" [(ngModel)]="getUsuario.id" name="id" placeholder="Id del usuario" required />
       </div>
 
       <div class="form-group">
         <label for="nombre">Nombre:</label>
-        <input id="nombre" [(ngModel)]="nuevoUsuario.name" name="name" placeholder="Nombre del usuario" required />
+        <input id="nombre" [(ngModel)]="getUsuario.name" name="name" placeholder="Nombre del usuario" required />
       </div>
 
       <div class="form-group">
         <label for="mail">Email:</label>
-        <input id="mail" [(ngModel)]="nuevoUsuario.mail" name="mail" placeholder="Email" required />
+        <input id="mail" [(ngModel)]="getUsuario.mail" name="mail" placeholder="Email" required />
       </div>
       
       <div class="form-group">
         <label for="password">Contraseña:</label>
-        <input id="password" [(ngModel)]="nuevoUsuario.password" name="password" placeholder="Password" required />
+        <input id="password" [(ngModel)]="getUsuario.password" name="password" placeholder="Password" required />
       </div>
 
       <div class="form-group">
         <label for="comment">Comment:</label>
-        <input id="comment" [(ngModel)]="nuevoUsuario.comment" name="comment" placeholder="Comment" required />
+        <input id="comment" [(ngModel)]="getUsuario.comment" name="comment" placeholder="Comment" required />
       </div>
 
       <button type="submit" class="submit-button">Agregar</button>
@@ -102,10 +105,11 @@
         </div>-->
 
         <div *ngIf="desplegado[i]">
+          <!--<p><strong>_Id:</strong> {{ usuario._id }}</p>-->
           <p><strong>Id:</strong> {{ usuario.id }}</p>
           <p><strong>Email:</strong> {{ usuario.mail }}</p>
           <p><strong>Contraseña:</strong> {{ usuario.password }}</p>
-          <p><strong>Comentario:</strong> {{ usuario.comment }}</p>
+          <!--p><strong>Comentario:</strong> {{ usuario.comment }}</p-->
           
         </div>
       </li>
