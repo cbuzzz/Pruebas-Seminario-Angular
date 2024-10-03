@@ -34,6 +34,7 @@ export class ListaComponent implements OnInit {
   };*/
 
   nuevoUsuario = {
+    //_id:'',
     id: '',
     name: '',
     mail: '',
@@ -62,7 +63,7 @@ export class ListaComponent implements OnInit {
 
   ngOnInit(): void {
     // Cargar usuarios desde la API
-    this.http.get<any[]>('localhost:3000/api/user')
+    this.http.get<any[]>('http://localhost:3000/api/user')
       .subscribe(data => {
         this.usuarios = data;
         this.desplegado = new Array(data.length).fill(false);
@@ -90,6 +91,7 @@ export class ListaComponent implements OnInit {
     };*/
     
     this.nuevoUsuario = {
+      //_id: '',
       id: '',
       name: '',
       mail: '',
@@ -106,12 +108,12 @@ export class ListaComponent implements OnInit {
     // Simulación de envío de datos
     console.log('Enviando datos a la API:', usuario);
     // Aquí puedes implementar la lógica para hacer un POST con HttpClient
-    /*
-    this.http.post('https://api-externa.com/endpoint', usuario)
+    
+    this.http.post('http://localhost:3000/api/user', usuario)
       .subscribe(response => {
         console.log('Respuesta de la API:', response);
       });
-    */
+    
   }
 
   // Función para eliminar un elemento de la lista
