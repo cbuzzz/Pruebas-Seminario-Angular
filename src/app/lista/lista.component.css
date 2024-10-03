@@ -76,6 +76,50 @@ input:focus {
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* Botón de modificar */
+button.modificar {
+  background-color: #f39c12; /* Naranja */
+  color: #fff;  /* Texto blanco */
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+button.modificar:hover {
+  background-color: #e67e22; /* Naranja oscuro al hacer hover */
+}
+
+button.modificar:active {
+  transform: scale(0.98);
+}
+
+/* Botón de eliminar en rojo */
+button.eliminar {
+  background-color: #e74c3c;  /* Rojo */
+  color: #fff;  /* Texto blanco */
+}
+
+button.eliminar:hover {
+  background-color: #c0392b;  /* Rojo más oscuro al hacer hover */
+}
+
+button.eliminar:active {
+  transform: scale(0.98);
+}
+
+/* Botón "Mostrar detalles" en gris */
+button.detalles {
+  background-color: #bdc3c7;  /* Gris */
+  color: #333;  /* Texto oscuro */
+}
+
+button.detalles:hover {
+  background-color: #95a5a6;  /* Gris más oscuro al hacer hover */
+}
+
+button.detalles:active {
+  transform: scale(0.98);
+}
+
 /* Estilo de los elementos de la lista */
 ul {
   list-style: none;
@@ -100,19 +144,6 @@ li div {
 li p {
   margin: 5px 0;
   color: #555;
-}
-
-button {
-  margin-left: 10px;
-}
-
-/* Botón de eliminar */
-button:nth-child(2) {
-  background-color: #e74c3c;
-}
-
-button:nth-child(2):hover {
-  background-color: #c0392b;
 }
 
 /* Transiciones suaves en el desplegable */
