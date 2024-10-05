@@ -2,7 +2,7 @@
   <!-- Formulario a la izquierda -->
   <div class="form-container">
     <h1>{{ indiceEdicion !== null ? 'Editar usuario' : 'Agregar un nuevo usuario' }}</h1>
-    <form (submit)="agregarElemento()" #userForm="ngForm">
+    <form (ngSubmit)="agregarElemento(userForm)" #userForm="ngForm">
       <div class="form-group">
         <label for="nombre">Nombre:</label>
         <input 
@@ -11,7 +11,7 @@
           name="name" 
           placeholder="Nombre del usuario" 
           required />
-        <div *ngIf="userForm.controls['name']?.invalid && userForm.controls['name']?.touched" class="error-message">
+        <div *ngIf="userForm.controls['name']?.invalid && (userForm.controls['name']?.touched || formSubmitted)" class="error-message">
           El nombre es obligatorio.
         </div>
       </div>
@@ -25,7 +25,7 @@
           placeholder="Email" 
           required 
           email />
-        <div *ngIf="userForm.controls['email']?.invalid && userForm.controls['email']?.touched" class="error-message">
+        <div *ngIf="userForm.controls['email']?.invalid && (userForm.controls['email']?.touched || formSubmitted)" class="error-message">
           {{ userForm.controls['email']?.errors?.['required'] ? 'El email es obligatorio.' : 'Formato de email no válido.' }}
         </div>
       </div>
@@ -40,7 +40,7 @@
           placeholder="Password" 
           required 
           minlength="7" />
-        <div *ngIf="userForm.controls['password']?.invalid && userForm.controls['password']?.touched" class="error-message">
+        <div *ngIf="userForm.controls['password']?.invalid && (userForm.controls['password']?.touched || formSubmitted)" class="error-message">
           {{ userForm.controls['password']?.errors?.['required'] ? 'La contraseña es obligatoria.' : 'La contraseña debe tener al menos 7 caracteres.' }}
         </div>
       </div>
@@ -55,7 +55,7 @@
           placeholder="Confirmar Password" 
           required 
           minlength="7" />
-        <div *ngIf="confirmarPassword !== nuevoUsuario.password && confirmarPassword.length > 0" class="error-message">
+        <div *ngIf="confirmarPassword !== nuevoUsuario.password && confirmarPassword.length > 0 && formSubmitted" class="error-message">
           Las contraseñas no coinciden.
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';  // Import FormsModule para ngModel
+import { FormsModule, NgForm } from '@angular/forms';  // Import FormsModule y NgForm para manejar el formulario
 import { User } from '../models/user.model'; // Importar el modelo User desde la subcarpeta services
 import { UserService } from '../services/user.service'; // Importar el servicio UserService desde la subcarpeta services
 
@@ -39,7 +39,7 @@ export class ListaComponent implements OnInit {
   }
 
   // Función para agregar o modificar un usuario
-  agregarElemento(): void {
+  agregarElemento(userForm: NgForm): void { // Aceptar userForm como parámetro
     this.formSubmitted = true; // Marcar que se ha enviado el formulario
 
     // Verificar si las contraseñas coinciden
@@ -78,12 +78,12 @@ export class ListaComponent implements OnInit {
       });
     }
 
-    // Limpiar los campos del formulario
-    this.resetForm();
+    // Limpiar los campos del formulario y restablecer su estado
+    this.resetForm(userForm);
   }
 
   // Función para limpiar el formulario
-  resetForm(): void {
+  resetForm(userForm: NgForm): void { // Aceptar userForm como parámetro
     this.nuevoUsuario = {
       name: '',
       email: '', // Limpiar el campo email
@@ -92,6 +92,7 @@ export class ListaComponent implements OnInit {
     };
     this.confirmarPassword = ''; // Reiniciar el campo de confirmar contraseña
     this.formSubmitted = false; // Restablecer el estado del formulario para no mostrar errores
+    userForm.resetForm(); // Reiniciar el formulario en la vista
   }
 
   // Función para preparar la edición de un usuario
