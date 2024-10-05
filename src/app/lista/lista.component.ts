@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UsuarioService } from '../services/usuarioService.service';
-import { Usuario } from '../modelos/usuario.model';
+import { newUsuario, Usuario } from '../modelos/usuario.model';
 
 
 @Component({
@@ -17,29 +17,17 @@ export class ListaComponent{ //implements OnInit
   usuarios: Usuario[] = []; // Aquí se almacenarán los datos completos de los usuarios
   desplegado: boolean[] = []; // Controla si el desplegable de cada usuario está abierto o cerrado
 
+  newusuario: newUsuario[] = [];
+
   data: any = {};
   private apiUrl = 'http://localhost:3000/api/user';
   
 
   // Objeto para almacenar los datos del nuevo usuario
-  /*nuevoUsuario = {
-    name: '',
-    email: '',
-    phone: '',
-    website: '',
-    company: {
-      name: ''
-    },
-    address: {
-      street: '',
-      city: '',
-      zipcode: ''
-    }
-  };*/
-
+ 
   getUsuario = {
-    //_id:'',
-    id: '',
+    _id:'',
+    //id: 0,
     name: '',
     mail: '',
     password: '',
@@ -47,7 +35,7 @@ export class ListaComponent{ //implements OnInit
   }
 
   postUsuario = {
-    id: '',
+    id: 0,
     name: '',
     mail: '',
     password: '',
@@ -75,43 +63,55 @@ export class ListaComponent{ //implements OnInit
 
   // Función para agregar un nuevo elemento basado en los datos del formulario
   agregarElemento(): void {
+    
     // Crear el objeto JSON con los datos introducidos por el usuario
-    const usuarioJSON = { ...this.getUsuario };
+    const usuarioJSON = { ...this.postUsuario };
+    console.log('Enviando datos a la API:', usuarioJSON); 
+
+    /*this.http.post(this.apiUrl, usuario)
+      .subscribe(response => {
+        console.log('Respuesta de la API:', response);
+      });*/
+
+      this.userService.postUsuario(usuarioJSON).subscribe(response => {
+        console.log('Usuario agregado:', response);
+      }),
 
     // Añadir el nuevo usuario a la lista
-   // this.usuarios.push(usuarioJSON);
-    //this.desplegado.push(false); // Añadir estado para el desplegable
-
-    
+      this.newusuario.push(usuarioJSON);
+      this.desplegado.push(false); // Añadir estado para el desplegable
+      
     this.getUsuario = {
-      //_id: '',
-      id: '',
+      _id: '',
+      //id: 0,
       name: '',
       mail: '',
       password: '',
       comment: ''
       }
+    
 
-    // Enviar el JSON a la API externa (simulación)
-    this.enviarDatosAPI(usuarioJSON);
-  }
-
-  // Simulación del envío de datos a una API externa
-  enviarDatosAPI(usuario: any): void {
-    // Simulación de enví o de datos
-    console.log('Enviando datos a la API:', usuario);
    
-    // Aquí puedes implementar la lógica para hacer un POST con HttpClient
-    /*
-    this.http.post(this.apiUrl, usuario)
-      .subscribe(response => {
-        console.log('Respuesta de la API:', response);
-      });
-    */
+  }
+  eliminarElemento(index: number): void {
+    const usuarioId = this.usuarios[index]._id;
+    this.userService.getUsuarios().subscribe (data =>{
+      console.log(data);
+      this.usuarios = data;
+    })
+
+    // Llamar al servicio para eliminar el usuario
+    this.userService.deleteUsuario(usuarioId).subscribe(() => {
+      console.log(`Usuario con ID ${usuarioId} eliminado`);
+
+      // Eliminar el usuario de la lista localmente
+      this.usuarios.splice(index, 1);
+      this.desplegado.splice(index, 1);
+    });
   }
 
   // Función para eliminar un elemento de la lista
-  eliminarElemento(index: number): void {
+  /*eliminarElemento(index: number): void {
     this.usuarios.splice(index, 1);
     this.desplegado.splice(index, 1);
     
@@ -133,4 +133,6 @@ export class ListaComponent{ //implements OnInit
   toggleDesplegable(index: number): void {
     this.desplegado[index] = !this.desplegado[index];
   }
-  }
+}
+  
+
