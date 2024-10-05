@@ -17,6 +17,7 @@ export class ListaComponent implements OnInit {
 
   nuevoUsuario: User = {
     name: '',
+    email: '', // Añadir el campo email
     password: '',
     comment: ''
   };
@@ -59,6 +60,7 @@ export class ListaComponent implements OnInit {
       // Modo agregar nuevo usuario
       const usuarioJSON: User = {
         name: this.nuevoUsuario.name,
+        email: this.nuevoUsuario.email, // Añadir el campo email
         password: this.nuevoUsuario.password,
         comment: this.nuevoUsuario.comment
       };
@@ -76,6 +78,7 @@ export class ListaComponent implements OnInit {
     // Limpiar los campos del formulario
     this.nuevoUsuario = {
       name: '',
+      email: '', // Limpiar el campo email
       password: '',
       comment: ''
     };
