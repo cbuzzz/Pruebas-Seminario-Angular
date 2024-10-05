@@ -27,6 +27,7 @@
           email />
         <div *ngIf="userForm.controls['mail']?.invalid && (userForm.controls['mail']?.touched || formSubmitted)" class="error-message">
           {{ userForm.controls['mail'].errors?.['required'] ? 'El email es obligatorio.' : 'Formato de email no válido.' }}
+
         </div>
       </div>
 
@@ -42,6 +43,8 @@
           minlength="7" />
         <div *ngIf="userForm.controls['password']?.invalid && (userForm.controls['password']?.touched || formSubmitted)" class="error-message">
           {{ userForm.controls['password'].errors?.['required'] ? 'La contraseña es obligatoria.' : 'La contraseña debe tener al menos 7 caracteres.' }}
+
+
         </div>
       </div>
 
@@ -100,6 +103,7 @@
             <span *ngIf="!mostrarPassword[i]">********</span>
           </p>
           <p><strong>Biografía:</strong> {{ usuario.comment | truncate:10 }}</p>
+
           <button (click)="prepararEdicion(usuario, i)" class="modificar">Modificar</button>
         </div>
       </li>

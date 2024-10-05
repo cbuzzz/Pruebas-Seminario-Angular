@@ -6,12 +6,14 @@ import { UserService } from '../services/user.service'; // Importar el servicio 
 import { TruncatePipe } from '../pipe/truncate.pipe';
 import { MaskEmailPipe } from '../pipe/maskEmail.pipe';
 
+
 @Component({
   selector: 'app-lista',
   templateUrl: './lista.component.html',
   styleUrls: ['./lista.component.css'],
   standalone: true,  // Esto convierte el componente en independiente
   imports: [CommonModule, FormsModule, TruncatePipe, MaskEmailPipe]  // Importar CommonModule y FormsModule
+
 })
 export class ListaComponent implements OnInit {
   usuarios: User[] = []; // Lista de usuarios con tipado User
@@ -143,4 +145,5 @@ export class ListaComponent implements OnInit {
   togglePassword(index: number): void {
     this.mostrarPassword[index] = !this.mostrarPassword[index]; // Cambiamos entre true y false
   }
+
 }
