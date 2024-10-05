@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';  // Import FormsModule para ngModel
-import { User } from '../models/user.model'; // Importar el modelo User
-import { UserService } from '../services/user.service'; // Importar el servicio UserService
+import { User } from '../models/user.model'; // Importar el modelo User desde la subcarpeta services
+import { UserService } from '../services/user.service'; // Importar el servicio UserService desde la subcarpeta services
 
 @Component({
   selector: 'app-lista',
@@ -25,6 +25,7 @@ export class ListaComponent implements OnInit {
   confirmarPassword: string = ''; // Campo para confirmar la contraseña
   usuarioEdicion: User | null = null; // Usuario en proceso de edición
   indiceEdicion: number | null = null; // Almacena el índice del usuario en edición
+  formSubmitted: boolean = false; // Indica si se ha enviado el formulario
 
   constructor(private userService: UserService) {}
 
@@ -39,6 +40,8 @@ export class ListaComponent implements OnInit {
 
   // Función para agregar o modificar un usuario
   agregarElemento(): void {
+    this.formSubmitted = true; // Marcar que se ha enviado el formulario
+
     // Verificar si las contraseñas coinciden
     if (this.nuevoUsuario.password !== this.confirmarPassword) {
       alert('Las contraseñas no coinciden. Por favor, inténtalo de nuevo.');
@@ -76,6 +79,11 @@ export class ListaComponent implements OnInit {
     }
 
     // Limpiar los campos del formulario
+    this.resetForm();
+  }
+
+  // Función para limpiar el formulario
+  resetForm(): void {
     this.nuevoUsuario = {
       name: '',
       email: '', // Limpiar el campo email
@@ -83,6 +91,7 @@ export class ListaComponent implements OnInit {
       comment: ''
     };
     this.confirmarPassword = ''; // Reiniciar el campo de confirmar contraseña
+    this.formSubmitted = false; // Restablecer el estado del formulario para no mostrar errores
   }
 
   // Función para preparar la edición de un usuario

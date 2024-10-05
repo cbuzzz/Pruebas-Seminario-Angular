@@ -163,3 +163,10 @@ li div:nth-child(2) {
     width: 100%; /* Ambos bloques ocupan el 100% en pantallas pequeñas */
   }
 }
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
