@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from '../models/user.model'; // Importar el modelo User
+import { User } from '../models/user.model';
+import { environment } from '../environments/environment';  // Importar environment
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3000/api/user'; // URL de la API
+  private apiUrl = environment.apiUrl;  // Usar apiUrl desde environment
 
   constructor(private http: HttpClient) {}
 
@@ -31,5 +32,6 @@ export class UserService {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
 }
+
 
 
