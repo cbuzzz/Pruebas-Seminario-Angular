@@ -1,0 +1,172 @@
+/* Contenedor principal que alinea el formulario y la lista de usuarios horizontalmente */
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;  /* Reducimos el espacio entre el formulario y la lista */
+  padding: 40px;
+  max-width: 1600px; /* Aumentamos el ancho máximo del contenedor principal */
+  margin: 0 auto;    /* Centra el contenedor en la página */
+}
+
+/* Contenedor del formulario */
+.form-container {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  width: 49%; /* El formulario ahora ocupa el 49% del ancho */
+}
+
+/* Estilo del formulario */
+.user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Estilo general de etiquetas y entradas */
+label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #4a90e2;
+}
+
+/* Botón del formulario */
+.submit-button {
+  background-color: #4a90e2;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.submit-button:hover {
+  background-color: #357ABD;
+}
+
+.submit-button:active {
+  transform: scale(0.98);
+}
+
+/* Contenedor de la lista de usuarios */
+.lista-usuarios {
+  width: 49%; /* La lista de usuarios también ocupa el 49% del ancho */
+  background-color: #f9f9f9;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Botón de modificar */
+button.modificar {
+  background-color: #f39c12; /* Naranja */
+  color: #fff;  /* Texto blanco */
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+button.modificar:hover {
+  background-color: #e67e22; /* Naranja oscuro al hacer hover */
+}
+
+button.modificar:active {
+  transform: scale(0.98);
+}
+
+/* Botón de eliminar en rojo */
+button.eliminar {
+  background-color: #e74c3c;  /* Rojo */
+  color: #fff;  /* Texto blanco */
+}
+
+button.eliminar:hover {
+  background-color: #c0392b;  /* Rojo más oscuro al hacer hover */
+}
+
+button.eliminar:active {
+  transform: scale(0.98);
+}
+
+/* Botón "Mostrar detalles" en gris */
+button.detalles {
+  background-color: #bdc3c7;  /* Gris */
+  color: #333;  /* Texto oscuro */
+}
+
+button.detalles:hover {
+  background-color: #95a5a6;  /* Gris más oscuro al hacer hover */
+}
+
+button.detalles:active {
+  transform: scale(0.98);
+}
+
+/* Estilo de los elementos de la lista */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li div {
+  flex: 1;
+}
+
+li p {
+  margin: 5px 0;
+  color: #555;
+}
+
+/* Transiciones suaves en el desplegable */
+li div:nth-child(2) {
+  margin-top: 10px;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 10px;
+}
+
+/* Diseño responsivo para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .form-container, .lista-usuarios {
+    width: 100%; /* Ambos bloques ocupan el 100% en pantallas pequeñas */
+  }
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
