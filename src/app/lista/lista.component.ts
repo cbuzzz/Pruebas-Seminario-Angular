@@ -8,8 +8,8 @@ import { UserService } from '../services/user.service'; // Importar el servicio 
   selector: 'app-lista',
   templateUrl: './lista.component.html',
   styleUrls: ['./lista.component.css'],
-  standalone: true, // Este componente es independiente
-  imports: [CommonModule, FormsModule] // Asegúrate de importar estos módulos
+  standalone: true,  // Esto convierte el componente en independiente
+  imports: [CommonModule, FormsModule]  // Importar CommonModule y FormsModule
 })
 export class ListaComponent implements OnInit {
   usuarios: User[] = []; // Lista de usuarios con tipado User
@@ -17,13 +17,13 @@ export class ListaComponent implements OnInit {
 
   nuevoUsuario: User = {
     name: '',
-    mail: '',
     password: '',
     comment: ''
   };
 
   confirmarPassword: string = ''; // Campo para confirmar la contraseña
   usuarioEdicion: User | null = null; // Usuario en proceso de edición
+  indiceEdicion: number | null = null; // Almacena el índice del usuario en edición
 
   constructor(private userService: UserService) {}
 
@@ -36,7 +36,7 @@ export class ListaComponent implements OnInit {
       });
   }
 
-  // Función para agregar un nuevo elemento basado en los datos del formulario
+  // Función para agregar o modificar un usuario
   agregarElemento(): void {
     // Verificar si las contraseñas coinciden
     if (this.nuevoUsuario.password !== this.confirmarPassword) {
@@ -44,40 +44,59 @@ export class ListaComponent implements OnInit {
       return; // Salir de la función si no coinciden
     }
 
-    // Crear el usuario sin el campo _id
-    const usuarioJSON: User = {
-      name: this.nuevoUsuario.name,
-      mail: this.nuevoUsuario.mail,
-      password: this.nuevoUsuario.password,
-      comment: this.nuevoUsuario.comment
-    };
+    if (this.indiceEdicion !== null) {
+      // Estamos en modo edición, modificar el usuario existente
+      this.usuarios[this.indiceEdicion] = { ...this.nuevoUsuario, _id: this.usuarios[this.indiceEdicion]._id };
 
-    // Agregar el usuario al array de usuarios en el frontend
-    this.usuarios.push(usuarioJSON);
-    this.desplegado.push(false); // Control de desplegable para nuevos usuarios
+      // Actualizar el usuario en la API
+      this.userService.updateUser(this.usuarios[this.indiceEdicion]).subscribe(response => {
+        console.log('Usuario actualizado:', response);
+      });
+
+      // Limpiar el estado de edición
+      this.indiceEdicion = null;
+    } else {
+      // Modo agregar nuevo usuario
+      const usuarioJSON: User = {
+        name: this.nuevoUsuario.name,
+        password: this.nuevoUsuario.password,
+        comment: this.nuevoUsuario.comment
+      };
+
+      // Agregar el usuario al array de usuarios en el frontend
+      this.usuarios.push(usuarioJSON);
+      this.desplegado.push(false);
+
+      // Enviar el usuario a la API a través del UserService
+      this.userService.addUser(usuarioJSON).subscribe(response => {
+        console.log('Usuario agregado:', response);
+      });
+    }
 
     // Limpiar los campos del formulario
     this.nuevoUsuario = {
       name: '',
-      mail: '',
       password: '',
       comment: ''
     };
     this.confirmarPassword = ''; // Reiniciar el campo de confirmar contraseña
-
-    // Enviar el usuario a la API a través del UserService
-    this.userService.addUser(usuarioJSON).subscribe(response => {
-      console.log('Usuario agregado:', response);
-    });
   }
 
-  // Función para eliminar un usuario
+  // Función para preparar la edición de un usuario
+  prepararEdicion(usuario: User, index: number): void {
+    this.usuarioEdicion = { ...usuario }; // Clonar el usuario para la edición
+    this.nuevoUsuario = { ...usuario }; // Cargar los datos del usuario en el formulario
+    this.indiceEdicion = index; // Almacenar el índice del usuario en edición
+    this.desplegado[index] = true; // Abrir el desplegable del usuario que se está editando
+  }
+
+  // Función para eliminar un usuario usando el _id
   eliminarElemento(index: number): void {
     const usuarioAEliminar = this.usuarios[index];
 
     if (confirm(`¿Estás seguro de que deseas eliminar a ${usuarioAEliminar.name}?`)) {
-      // Eliminar a través del UserService usando mail como identificador
-      this.userService.deleteUserByEmail(usuarioAEliminar.mail).subscribe(
+      // Eliminar a través del UserService usando el _id como identificador
+      this.userService.deleteUserById(usuarioAEliminar._id!).subscribe(
         response => {
           console.log('Usuario eliminado:', response);
           this.usuarios.splice(index, 1);
@@ -95,19 +114,4 @@ export class ListaComponent implements OnInit {
   toggleDesplegable(index: number): void {
     this.desplegado[index] = !this.desplegado[index];
   }
-
-  // Función para preparar la edición de un usuario
-  prepararEdicion(usuario: User, index: number): void {
-    this.usuarioEdicion = { ...usuario }; // Clonar el usuario para la edición
-    this.nuevoUsuario = { ...usuario }; // Cargar los datos del usuario en el formulario
-    this.desplegado[index] = true; // Abrir el desplegable del usuario que se está editando
-  }
-
-  // Función para actualizar un usuario
-  actualizarUsuario(usuario: User): void {
-    this.userService.updateUser(usuario).subscribe(response => {
-      console.log('Usuario actualizado:', response);
-    });
-  }
 }
-

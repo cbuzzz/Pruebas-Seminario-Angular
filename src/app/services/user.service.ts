@@ -23,12 +23,13 @@ export class UserService {
 
   // Actualizar un usuario existente
   updateUser(usuario: User): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/${usuario.mail}`, usuario);
+    return this.http.put<User>(`${this.apiUrl}/${usuario._id}`, usuario);
   }
 
-  // Eliminar un usuario por su email
-  deleteUserByEmail(mail: string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/email/${mail}`);
+  // Eliminar un usuario por su _id
+  deleteUserById(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
 }
+
 

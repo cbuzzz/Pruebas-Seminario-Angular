@@ -5,12 +5,10 @@ import { ListaComponent } from './lista/lista.component'; // Importar el compone
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  standalone: true,
-  imports: [ListaComponent]  // Importar el componente aquí
+  standalone: true, // Esto convierte el componente en standalone
+  imports: [ListaComponent] // Asegúrate de que esté aquí
 })
 export class AppComponent {
   title = 'lista-elementos';
 }
-
-
 

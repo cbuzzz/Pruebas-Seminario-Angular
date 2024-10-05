@@ -1,18 +1,13 @@
 <div class="container">
   <!-- Formulario a la izquierda -->
   <div class="form-container">
-    <h1>Agregar un nuevo usuario</h1>
+    <h1>{{ indiceEdicion !== null ? 'Editar usuario' : 'Agregar un nuevo usuario' }}</h1>
     <form (submit)="agregarElemento()" class="user-form">
       <div class="form-group">
         <label for="nombre">Nombre:</label>
         <input id="nombre" [(ngModel)]="nuevoUsuario.name" name="name" placeholder="Nombre del usuario" required />
       </div>
 
-      <div class="form-group">
-        <label for="mail">Email:</label>
-        <input id="mail" [(ngModel)]="nuevoUsuario.mail" name="mail" placeholder="Email" required />
-      </div>
-      
       <div class="form-group">
         <label for="password">Contraseña:</label>
         <input id="password" [(ngModel)]="nuevoUsuario.password" name="password" placeholder="Password" required />
@@ -28,7 +23,10 @@
         <input id="biografia" [(ngModel)]="nuevoUsuario.comment" name="comment" placeholder="Biografía" required />
       </div>
 
-      <button type="submit" class="submit-button">Agregar</button>
+      <!-- El botón cambia de texto según si estamos editando o agregando -->
+      <button type="submit" class="submit-button">
+        {{ indiceEdicion !== null ? 'Actualizar' : 'Agregar' }}
+      </button>
     </form>
   </div>
 
@@ -47,7 +45,6 @@
 
         <!-- Detalles del usuario -->
         <div *ngIf="desplegado[i]">
-          <p><strong>Email:</strong> {{ usuario.mail }}</p>
           <p><strong>Contraseña:</strong> {{ usuario.password }}</p>
           <p><strong>Biografía:</strong> {{ usuario.comment }}</p>
           <button (click)="prepararEdicion(usuario, i)" class="modificar">Modificar</button>
@@ -56,6 +53,3 @@
     </ul>
   </div>
 </div>
-
-
-
