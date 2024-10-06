@@ -5,7 +5,7 @@ import { User } from '../models/user.model'; // Importar el modelo User desde la
 import { UserService } from '../services/user.service'; // Importar el servicio UserService desde la subcarpeta services
 import { TruncatePipe } from '../pipe/truncate.pipe';
 import { MaskEmailPipe } from '../pipe/maskEmail.pipe';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista',
@@ -32,7 +32,7 @@ export class ListaComponent implements OnInit {
   indiceEdicion: number | null = null; // Almacena el índice del usuario en edición
   formSubmitted: boolean = false; // Indica si se ha enviado el formulario
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
     // Cargar usuarios desde el UserService
@@ -144,6 +144,11 @@ export class ListaComponent implements OnInit {
   // Función para alternar la visibilidad de la contraseña
   togglePassword(index: number): void {
     this.mostrarPassword[index] = !this.mostrarPassword[index]; // Cambiamos entre true y false
+  }
+
+  //Funció per redigir a la pàgina d'experiències
+  goToExperiences(): void {
+    this.router.navigate(['/experiences']);  // Navegar a la ruta d'experiències
   }
 
 }

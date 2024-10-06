@@ -1,0 +1,49 @@
+<div>
+    <h1>Llista d'Experiències</h1>
+  
+    <!-- Formulari per afegir una nova experiència -->
+    <form (ngSubmit)="addExperience()">
+      <label for="owner">Propietari:</label>
+      <input type="text" id="owner" [(ngModel)]="newExperience.owner" name="owner" required />
+  
+      <label for="participants">Participants (separats per comes):</label>
+      <input type="text" id="participants" [(ngModel)]="newExperience.participants" name="participants" />
+  
+      <label for="description">Descripció:</label>
+      <textarea id="description" [(ngModel)]="newExperience.description" name="description" required></textarea>
+  
+      <button type="submit">Afegir Experiència</button>
+    </form>
+  
+    <!-- Llista d'experiències -->
+    <ul>
+      <li *ngFor="let experience of experiences">
+        <h3>{{ experience.description }}</h3>
+        <p><strong>Propietari:</strong> {{ experience.owner }}</p>
+        <p><strong>Participants:</strong> {{ experience.participants.join(', ') }}</p>
+  
+        <!-- Botó per editar -->
+        <button (click)="editExperience(experience)">Modificar</button>
+        <button (click)="deleteExperience(experience._id)">Eliminar</button>
+      </li>
+    </ul>
+  
+    <!-- Formulari d'edició -->
+    <div *ngIf="editingExperience">
+      <h2>Modificar Experiència</h2>
+      <form (ngSubmit)="updateExperience()">
+        <label for="editOwner">Propietari:</label>
+        <input type="text" id="editOwner" [(ngModel)]="editingExperience.owner" name="editOwner" required />
+  
+        <label for="editParticipants">Participants (separats per comes):</label>
+        <input type="text" id="editParticipants" [(ngModel)]="editingExperience.participants" name="editParticipants" />
+  
+        <label for="editDescription">Descripció:</label>
+        <textarea id="editDescription" [(ngModel)]="editingExperience.description" name="editDescription" required></textarea>
+  
+        <button type="submit">Guardar Canvis</button>
+        <button (click)="editingExperience = null">Cancel·lar</button>
+      </form>
+    </div>
+  </div>
+  
